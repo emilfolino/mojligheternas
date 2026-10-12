@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Möjligheternas</title>
+  <link rel="stylesheet" href="css/tema.css">
+  <style>
+    .rubrik { text-align: center; margin: 1rem 0 2rem; }
+    .rubrik h2 { font-size: 2.4rem; margin: 0; }
+    .kort-rad { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .kort {
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      padding: 2rem 1.2rem; border-radius: 32px; color: white; text-decoration: none;
+      box-shadow: 0 10px 0 rgba(43, 35, 80, 0.3);
+      transition: transform 0.15s;
+    }
+    .kort:hover { transform: translateY(-6px) rotate(-1deg); }
+    .kort .ikon { font-size: 4.5rem; }
+    .kort h3 { font-size: 1.8rem; margin: 0.5rem 0; text-shadow: 2px 2px 0 rgba(43, 35, 80, 0.3); }
+    .kort p { margin: 0; font-size: 1.1rem; }
+    .kort.caesar { background: var(--rosa); }
+    .kort.nyckel { background: var(--bla); }
+    .kort.blick { background: var(--gron); }
+    .kort.snart { opacity: 0.6; pointer-events: none; }
+  </style>
+</head>
+<body>
+  <header class="topp"><h1>Möjligheternas Dag</h1></header>
+  <main>
+    <div class="rubrik">
+      <h2>Vad vill du utforska idag?</h2>
+    </div>
+    <div class="kort-rad">
+      <a class="kort caesar" href="caesar/">
+        <span class="ikon">🔤</span>
+        <h3>Hemliga koder</h3>
+        <p>Skriv i kod med Caesarchiffer och bli en riktig kodknäckare!</p>
+      </a>
+      <a class="kort nyckel" href="nyckel/">
+        <span class="ikon">🔑</span>
+        <h3>Lås och nycklar</h3>
+        <p>Hur kan man skicka hemligheter som ingen annan kan läsa?</p>
+      </a>
+      <a class="kort blick" href="blickmatte/">
+        <span class="ikon">👀</span>
+        <h3>Blickmatte</h3>
+        <p>Svara på mattefrågor – bara med blicken!</p>
+      </a>
+    </div>
+  </main>
+</body>
+</html>

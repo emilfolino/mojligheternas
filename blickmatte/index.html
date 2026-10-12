@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blickmatte – Möjligheternas</title>
+  <link rel="stylesheet" href="../css/tema.css">
+  <style>
+    main { max-width: none; padding: 1rem 3vw; }
+    #start { max-width: 900px; margin-left: auto; margin-right: auto; }
+    [hidden] { display: none !important; }
+    .knapp.gron { background: var(--gron); }
+    .knapp.stor { font-size: 1.5rem; padding: 0.8rem 2rem; }
+    .knappar { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
+    ol.steg { padding-left: 1.4rem; line-height: 1.7; }
+    #startfel { color: #8c1d3a; font-weight: bold; }
+
+    /* Kalibrering */
+    #kalibrera { position: fixed; inset: 0; z-index: 50; background: rgba(255, 248, 225, 0.96); }
+    #kal-text { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); text-align: center; max-width: 480px; pointer-events: none; }
+    #kal-text h2 { font-size: 1.6rem; }
+    .pricken {
+      position: absolute; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%;
+      border: 6px solid var(--ink); background: var(--rosa); cursor: pointer; z-index: 2;
+      font: inherit; font-size: 1.6rem; font-weight: bold; color: white; box-shadow: var(--skugga);
+      animation: puls 1s ease-in-out infinite;
+    }
+    @keyframes puls { 50% { transform: scale(1.18); } }
+
+    /* Spelet */
+    .spelhuvud { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    #streck { font-size: 2rem; font-weight: bold; background: var(--gul); border: 4px solid var(--ink); border-radius: 999px; padding: 0.2rem 1.2rem; box-shadow: var(--skugga); }
+    #streck.hopp { animation: hopp 0.5s; }
+    @keyframes hopp { 40% { transform: scale(1.3) rotate(-4deg); } }
+    #fraga { text-align: center; font-size: 4rem; font-weight: bold; margin: 0.8rem 0 1.5rem; letter-spacing: 0.05em; }
+    #svarsrad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8vw; margin: 0 auto 1rem; }
+    .svar {
+      position: relative; min-height: 50vh; border: 6px solid var(--ink); border-radius: 36px; font: inherit;
+      font-size: clamp(4rem, 12vw, 9rem); font-weight: bold; color: white; cursor: pointer;
+      box-shadow: 0 10px 0 rgba(43, 35, 80, 0.3); overflow: hidden; transition: background 0.2s;
+    }
+    .svar:nth-child(1) { background: var(--bla); }
+    .svar:nth-child(2) { background: var(--lila); }
+    .svar:nth-child(3) { background: var(--orange); }
+    .svar .fyllning { position: absolute; left: 0; right: 0; bottom: 0; height: 0; background: rgba(255, 255, 255, 0.35); pointer-events: none; }
+    .svar .ring {
+      position: absolute; top: 14px; right: 14px; width: 80px; height: 80px; border-radius: 50%; pointer-events: none;
+      background: conic-gradient(var(--gul) calc(var(--p, 0) * 360deg), rgba(255, 255, 255, 0.35) 0);
+    }
+    .svar .ring::after { content: ""; position: absolute; inset: 14px; border-radius: 50%; background: rgba(43, 35, 80, 0.55); }
+    .svar span.tal { position: relative; }
+    .svar.ratt { background: var(--gron) !important; }
+    .svar.fel { background: var(--rod) !important; }
+    #aterkoppling { min-height: 3.2rem; text-align: center; font-size: 2rem; font-weight: bold; }
+    #varning { text-align: center; color: #8c1d3a; font-weight: bold; min-height: 1.6rem; }
+    .verktygsrad { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <header class="topp">
+    <a class="knapp hem" href="../">🏠 Hem</a>
+    <h1>👀 Blickmatte</h1>
+  </header>
+
+  <main>
+    <!-- Startsida -->
+    <section id="start" class="panel gron">
+      <h2>Svara på mattefrågor – med blicken!</h2>
+      <p>Datorn kan se vart du tittar med hjälp av kameran. Du svarar genom att <b>titta på rätt svar</b> i en sekund.</p>
+      <ol class="steg">
+        <li>Tillåt kameran när webbläsaren frågar.</li>
+        <li>Sitt stilla, med ansiktet i mitten av kameran och ljus framför dig.</li>
+        <li>Titta på pricken och klicka på den. Det gör vi flera gånger så att datorn lär sig dina ögon.</li>
+        <li>Titta på svaret du tror är rätt tills ringen blir full!</li>
+      </ol>
+      <p>🔒 Kamerabilden stannar i din dator. Den sparas eller skickas aldrig någonstans.</p>
+      <p id="startfel" role="alert"></p>
+      <div class="knappar">
+        <button id="starta-blick" class="knapp gron stor" type="button">👀 Starta med blicken</button>
+        <button id="starta-mus" class="knapp hem" type="button">🖱️ Spela med musen</button>
+      </div>
+    </section>
+
+    <!-- Kalibrering -->
+    <div id="kalibrera" hidden>
+      <div id="kal-text">
+        <h2 id="kal-rubrik">Titta på pricken och klicka!</h2>
+        <p id="kal-hjalp">Håll huvudet stilla. Klicka 5 gånger på varje prick.</p>
+      </div>
+    </div>
+
+    <!-- Spel -->
+    <section id="spel" hidden>
+      <div class="spelhuvud">
+        <div id="streck">🔥 Rätt i rad: <span id="streck-tal">0</span></div>
+        <p id="lage" style="margin:0"></p>
+      </div>
+      <div id="fraga" aria-live="polite"></div>
+      <div id="svarsrad"></div>
+      <div id="aterkoppling" aria-live="polite"></div>
+      <div id="varning" role="status"></div>
+      <div class="verktygsrad">
+        <button id="blickpunkt" class="knapp hem" type="button">🔴 Visa blickpunkt</button>
+        <button id="kalibrera-om" class="knapp rosa" type="button">🎯 Kalibrera om</button>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="blickmatte.js"></script>
+</body>
+</html>

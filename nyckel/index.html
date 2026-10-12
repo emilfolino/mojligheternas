@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lås och nycklar – Möjligheternas</title>
+  <link rel="stylesheet" href="../css/tema.css">
+  <style>
+    .scen { display: flex; align-items: center; justify-content: space-around; gap: 1rem; flex-wrap: wrap; text-align: center; margin: 1rem 0; }
+    .figur { font-size: 4rem; line-height: 1; }
+    .figur small { display: block; font-size: 1.1rem; margin-top: 0.3rem; font-weight: bold; }
+    #lada { font-size: 5rem; transition: transform 0.3s; }
+    #lada.vippar { animation: vippa 0.4s; }
+    @keyframes vippa { 25% { transform: rotate(-12deg); } 75% { transform: rotate(12deg); } }
+    .nycklar { display: flex; gap: 1rem; flex-wrap: wrap; margin: 0.5rem 0 1rem; }
+    .nyckelkort { flex: 1; min-width: 240px; border: 3px dashed var(--bla); border-radius: 16px; padding: 0.6rem 1rem; background: #f0f6ff; }
+    .nyckelkort.privat { border-color: var(--rod); background: #fff0f3; }
+    .nyckelkort .stor { font-size: 2.4rem; }
+    input[type=text] { font: inherit; font-size: 1.3rem; padding: 0.4rem 0.8rem; border: 3px solid var(--orange); border-radius: 14px; width: min(100%, 420px); }
+    .knappar { display: flex; gap: 0.8rem; flex-wrap: wrap; margin: 0.8rem 0; }
+    .knapp:disabled { opacity: 0.4; cursor: not-allowed; filter: none; }
+    .knapp.gron { background: var(--gron); }
+    .knapp.rod { background: var(--rod); }
+    .knapp.orange { background: var(--orange); }
+    #utfall { min-height: 3.4rem; border-radius: 16px; padding: 0.6rem 1rem; font-size: 1.2rem; background: #f4f0ff; border: 3px solid var(--lila); }
+    #utfall.bra { background: #e8fbf8; border-color: var(--gron); }
+    #utfall.dalig { background: #fff0f3; border-color: var(--rod); }
+    .editor { border: 3px solid var(--bla); border-radius: 16px; overflow: hidden; }
+    #editor-kryptera { height: 420px; }
+    #editor-dekryptera { height: 320px; }
+    .fel { display: none; background: #fff0f3; color: #8c1d3a; border: 3px solid var(--rod); border-radius: 16px; padding: 0.5rem 1rem; margin: 0.6rem 0 0; }
+    .fel.syns { display: block; }
+    .utskrift { min-height: 3rem; font-family: "Courier New", monospace; font-size: 1.5rem; font-weight: bold; padding: 0.6rem 1rem; background: #e8fbf8; border: 3px solid var(--gron); border-radius: 16px; word-break: break-word; margin-top: 0.8rem; }
+    .utmaning { border-color: var(--lila); }
+    .utmaning > h2 span { background: var(--lila); color: white; border-radius: 999px; padding: 0.1rem 0.8rem; font-size: 1rem; vertical-align: middle; }
+    .ruta { background: #fffbe6; border: 3px solid var(--gul); border-radius: 16px; padding: 0.4rem 1rem; margin: 0.8rem 0; }
+    code { background: #efe9ff; padding: 0 0.3rem; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <header class="topp">
+    <a class="knapp hem" href="../">🏠 Hem</a>
+    <h1>🔑 Lås och nycklar</h1>
+  </header>
+  <main>
+    <section class="panel bla">
+      <h2>Hur skickar man en hemlighet?</h2>
+      <p>Olle vill skicka ett hemligt meddelande till Maja. Men <b>Tjuven</b> försöker alltid läsa det!
+         Maja har ett knep: hon har <b>två</b> saker.</p>
+      <div class="nycklar">
+        <div class="nyckelkort">
+          <span class="stor">🔓</span> <b>Publikt hänglås</b>
+          <p>Maja ger bort hänglåset till <b>alla</b>. Vem som helst kan <i>låsa</i> en låda med det.</p>
+        </div>
+        <div class="nyckelkort privat">
+          <span class="stor">🗝️</span> <b>Privat nyckel</b>
+          <p>Bara Maja har nyckeln. Den är hemlig, och bara den kan <i>öppna</i> låset.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel rosa">
+      <h2>Prova själv!</h2>
+      <p><b>1.</b> Skriv Olles hemliga meddelande:</p>
+      <input id="hemlis" type="text" value="Möt mig vid gungorna!" maxlength="60" autocomplete="off" aria-label="Hemligt meddelande">
+      <div class="scen">
+        <div class="figur">🧒<small>Olle</small></div>
+        <div class="figur" id="lada">📦</div>
+        <div class="figur">👧<small>Maja</small></div>
+        <div class="figur">🦹<small>Tjuven</small></div>
+      </div>
+      <p><b>2.</b> Lås lådan med Majas publika hänglås:</p>
+      <div class="knappar">
+        <button id="las" class="knapp rosa" type="button">🔒 Lås lådan</button>
+        <button id="gor-om" class="knapp hem" type="button">↺ Börja om</button>
+      </div>
+      <p><b>3.</b> Vem kan öppna lådan?</p>
+      <div class="knappar">
+        <button id="olle" class="knapp orange" type="button" disabled>🧒 Olle försöker</button>
+        <button id="tjuv" class="knapp rod" type="button" disabled>🦹 Tjuven försöker</button>
+        <button id="maja" class="knapp gron" type="button" disabled>👧 Maja öppnar med sin nyckel</button>
+      </div>
+      <div id="utfall" aria-live="polite">Lådan är inte låst än.</div>
+    </section>
+
+    <section class="panel utmaning">
+      <h2><span>⭐ Utmaning</span> Riktig kod med små tal</h2>
+      <p>Datorer gör låsen med <b>tal</b>. Här är en riktig (men mycket liten!) metod som heter <b>RSA</b>.
+         Varje bokstav blir ett tal: mellanslag = 0, A = 1, B = 2 … Ö = 29.</p>
+      <div class="ruta">
+        <p><b>Hänglåset</b> är två tal: <code>n = 33</code> och <code>e = 3</code>.<br>
+           <b>Nyckeln</b> är <code>d = 7</code> (och samma <code>n</code>).<br>
+           Att låsa: ta talet <i>upphöjt till e</i>, och behåll bara <b>resten</b> när du delar med n (<code>%</code>).
+           Att öppna: samma sak, men med d.</p>
+      </div>
+      <p class="ruta">⚠️ Det här är bara för att lära sig! Med så små tal kan en dator knäcka koden på en millisekund.
+         Riktiga lås använder jättestora tal.</p>
+
+      <h3>🔒 Lås meddelandet (med hänglåset n och e)</h3>
+      <p>Ändra gärna meddelandet:</p>
+      <input id="rsa-text" type="text" value="HEJ MAJA" maxlength="40" autocomplete="off" aria-label="Meddelande att kryptera">
+      <div id="editor-kryptera" class="editor"></div>
+      <p id="fel-kryptera" class="fel" role="alert"></p>
+      <div id="tal" class="utskrift" aria-live="polite"></div>
+      <div class="knappar"><button id="om-kryptera" class="knapp rosa" type="button">↺ Börja om</button></div>
+
+      <h3>🗝️ Öppna meddelandet (med nyckeln d)</h3>
+      <p>Talen från rutan ovan skickas hit. Prova att ändra <code>e</code> eller <code>d</code> – vad händer?</p>
+      <div id="editor-dekryptera" class="editor"></div>
+      <p id="fel-dekryptera" class="fel" role="alert"></p>
+      <div id="oppnat" class="utskrift" aria-live="polite"></div>
+      <div class="knappar"><button id="om-dekryptera" class="knapp rosa" type="button">↺ Börja om</button></div>
+    </section>
+  </main>
+
+  <script type="module" src="nyckel.js"></script>
+</body>
+</html>

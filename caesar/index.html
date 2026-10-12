@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hemliga koder – Möjligheternas</title>
+  <link rel="stylesheet" href="../css/tema.css">
+  <style>
+    #meddelande {
+      width: 100%; font: inherit; font-size: 1.4rem; padding: 0.6rem 1rem;
+      border: 3px solid var(--rosa); border-radius: 16px; color: var(--ink);
+    }
+    #editor { height: 380px; border: 3px solid var(--bla); border-radius: 16px; overflow: hidden; }
+    .verktyg { display: flex; gap: 1rem; align-items: center; margin-top: 0.8rem; flex-wrap: wrap; }
+    #fel {
+      display: none; flex: 1; min-width: 240px; background: #fff0f3; color: #8c1d3a;
+      border: 3px solid var(--rod); border-radius: 16px; padding: 0.5rem 1rem; margin: 0;
+    }
+    #fel.syns { display: block; }
+    #svar {
+      min-height: 3.2rem; font-family: "Courier New", monospace; font-size: 1.6rem; font-weight: bold;
+      letter-spacing: 0.08em; padding: 0.6rem 1rem; background: #e8fbf8; border: 3px solid var(--gron);
+      border-radius: 16px; word-break: break-word; white-space: pre-wrap;
+    }
+    .tips { margin: 0.2rem 0 0.8rem; }
+  </style>
+</head>
+<body>
+  <header class="topp">
+    <a class="knapp hem" href="../">🏠 Hem</a>
+    <h1>🔤 Hemliga koder</h1>
+  </header>
+  <main>
+    <section class="panel rosa">
+      <h2>1. Skriv ditt hemliga meddelande</h2>
+      <input id="meddelande" type="text" value="HEJ PÅ DIG" autocomplete="off" spellcheck="false"
+             aria-label="Ditt meddelande">
+    </section>
+
+    <section class="panel bla">
+      <h2>2. Koden som gör meddelandet hemligt</h2>
+      <p class="tips">Prova att ändra <b>skift</b> till ett annat tal, eller ändra bokstäverna i <b>alfabet</b>!</p>
+      <div id="editor"></div>
+      <div class="verktyg">
+        <button id="borja-om" class="knapp rosa" type="button">↺ Börja om</button>
+        <p id="fel" role="alert"></p>
+      </div>
+    </section>
+
+    <section class="panel gron">
+      <h2>3. Det hemliga meddelandet</h2>
+      <div id="svar" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script type="module" src="caesar.js"></script>
+</body>
+</html>
