@@ -15,7 +15,7 @@ The project is a greenfield repo; this file records the decisions made up front.
 ## Hard requirements
 
 - **All user-visible text is Swedish**: UI, hints, error messages, code comments shown to students, page titles, `lang="sv"`. Code identifiers, file names and developer comments may stay English, but anything a pupil can read in the browser must be Swedish. Use simple language suited to 9–10-year-olds.
-- **Bright and colourful design**: playful, high-contrast, large type and large click/gaze targets. Keep one shared stylesheet/theme (CSS custom properties) so all three parts look like one product.
+- **Bright and colourful design**: playful, high-contrast, large type and large click/gaze targets. Keep one shared stylesheet/theme (CSS custom properties) so all three parts look like one product. The font is Fredoka, vendored in `vendor/fonts` (OFL) so it looks identical on Linux, Mac and Chromebooks; don't rely on system fonts like Comic Sans.
 - **Privacy**: no accounts, no backend, nothing saved, no analytics. Webcam video for eye tracking must never leave the browser (see Part 3).
 - **Target devices**: laptops/Chromebooks with a webcam, mouse and keyboard. Layout need not be touch-first.
 

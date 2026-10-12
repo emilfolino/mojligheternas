@@ -1,4 +1,11 @@
 /* Delat tema för alla delar av Möjligheternas */
+@font-face {
+  font-family: "Fredoka";
+  src: url("../vendor/fonts/fredoka-latin-wght-normal.woff2") format("woff2");
+  font-weight: 300 600; /* bold (700) clamps to 600: slightly thinner, more readable */
+  font-display: swap;
+}
+
 :root {
   --bg: #fff8e1;
   --ink: #2b2350;
@@ -19,7 +26,7 @@
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: "Comic Sans MS", "Chalkboard SE", "Trebuchet MS", system-ui, sans-serif;
+  font-family: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
   color: var(--ink);
   background:
     radial-gradient(circle at 10% 10%, #ffe0f0 0 12%, transparent 13%),
