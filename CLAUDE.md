@@ -18,6 +18,7 @@ The project is a greenfield repo; this file records the decisions made up front.
 - **Bright and colourful design**: playful, high-contrast, large type and large click/gaze targets. Keep one shared stylesheet/theme (CSS custom properties) so all three parts look like one product. The font is Fredoka, vendored in `vendor/fonts` (OFL) so it looks identical on Linux, Mac and Chromebooks; don't rely on system fonts like Comic Sans.
 - **Privacy**: no accounts, no backend, nothing saved, no analytics. Webcam video for eye tracking must never leave the browser (see Part 3).
 - **Target devices**: laptops/Chromebooks with a webcam, mouse and keyboard. Layout need not be touch-first.
+- **License**: GPL-3.0 (`LICENSE`), copyright © 2026 Emil Folino. GPL is required because the vendored webgazer.js is GPLv3; vendored libraries keep their own licenses.
 
 ## Tech stack and commands
 
